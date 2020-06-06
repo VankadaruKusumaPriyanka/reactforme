@@ -1,0 +1,63 @@
+2)JavaScript Algorithms and Data Structures Projects: Telephone Number ValidatorPassed
+Return true if the passed string looks like a valid US phone number.
+
+The user may fill out the form field any way they choose as long as it has the format of a valid US number. The following are examples of valid formats for US numbers (refer to the tests below for other variants):
+
+555-555-5555
+(555)555-5555
+(555) 555-5555
+555 555 5555
+5555555555
+1 555 555 5555
+For this challenge you will be presented with a string such as 800-692-7753 or 8oo-six427676;laskdjf. Your job is to validate or reject the US phone number based on any combination of the formats provided above. The area code is required. If the country code is provided, you must confirm that the country code is 1. Return true if the string is a valid US phone number; otherwise return false.
+
+ANSWER:
+
+function telephoneCheck(str) {
+  var len = function(item) { return item.length; };
+  var nxxVal = function(nxx) { return nxx[0] > 1 && nxx[1] + nxx[2] != 11; };
+  var npaExchVal = function(item) {
+    return nxxVal(item.slice(-10, -7)) && item[len(item) - 9] != 9 && nxxVal(item.slice(-7, -4));
+  };
+  var strNums = str.replace(/[^\d]/g, "");
+  var strForm = str.trim().replace(/[^\d\s\(\)\-]/g, "_").split("").reverse().join("");
+  
+  function numsVal() {
+    if (len(strNums) < 10 || len(strNums) > 11) { return false; }
+    if (len(strNums) === 10) { return npaExchVal(strNums); }
+    else if (len(strNums) === 11) { return npaExchVal(strNums) && strNums[0] == 1; }
+  }
+  function formVal() {
+    if (/_/.test(strForm)) { return false; }
+    if (/[^\d]/.test(strForm.slice(0, 4))) { return false; }
+    if (/-/.test(strForm[len(strForm) -1])) { return false; }
+    if (/[\s-][\s-]/.test(strForm) || /-[\(\)]/.test(strForm) || /[\(\)]-/.test(strForm) || /[\(\)][\(\)]/.test(strForm)) { return false; }
+    if (/[\(\)]/.test(strForm)) {
+      if (!/\(/.test(strForm) || !/\)/.test(strForm)) { return false; }
+      if (strForm.search(/\)/) < 7 || strForm.search(/\)/) > 9) { return false; }
+      if (strForm.search(/\(/) - strForm.search(/\)/) !== 4) { return false; }
+      if (strForm.indexOf("(") !== strForm.lastIndexOf("(") || strForm.indexOf(")") !== strForm.lastIndexOf(")")) { return false; }
+      if (/[^\d]/.test(strForm.slice(strForm.search(/\)/) + 1, strForm.search(/\(/)))) { return false; }
+    }
+    if (/[\s-]/.test(strForm)) {
+      if (strForm.search(/[-\s]/) < 4) { return false; }
+      if (/\s/.test(strForm[4]) && /-/.test(strForm)) { return false; }
+      if (/[\s-]/.test(strForm[4])) {
+        if (/[^\d]/.test(strForm.slice(5, 8)) || /\d/.test(strForm[8])) { return false; }
+        if (/\d/.test(strForm[9])) {
+          if (/[^\d]/.test(strForm.slice(9, 12)) || /\d/.test(strForm[12])) { return false; }
+        }
+      }
+      else if (/\d/.test(strForm[7])) {
+        if (/[^\d]/.test(strForm(7, 10))) { return false; }
+      }
+      else if (/\d/.test(strForm[8])) {
+        if (/[^\d]/.test(strForm(8, 11)) || /\d/.test(strForm[11])) { return false; }
+      }
+    }
+    return true;
+  }
+  return numsVal() && formVal();
+}
+
+telephoneCheck("555-555-5555");
