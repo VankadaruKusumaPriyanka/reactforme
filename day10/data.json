@@ -1,0 +1,17 @@
+{
+    "details":{
+        "name":"Ravindra"
+    },
+    "cardsdata":[
+        {
+            "name":"Rajesh",
+            "email":"rajesh.n@apssdc.in",
+            "mobile":"7019965113"
+        },
+        {
+            "name":"Rajesh N",
+            "email":"rajesh.n@apssdc.in",
+            "mobile":"9100965113"
+        }
+    ]
+}

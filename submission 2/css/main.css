@@ -1,0 +1,39 @@
+.main{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* card */
+.card{
+    width: 25%;
+    background-color: bisque;
+    text-align: center;
+}
+
+.card>.cardchild1>img{
+    width: 50%;
+}
+/* data */
+
+.data{
+    width: 74%;
+    background-color: rgb(241, 180, 105);
+}
+
+/* media queries for mobile view */
+
+@media (min-device-width: 320px) and (max-device-width: 480px){
+    .card,
+    .data{
+        width: 100%;
+    }
+    .card{
+        display: flex;
+    }
+    .cardchild1,
+    .cardchild2{
+        width: 49%;
+    }
+}
